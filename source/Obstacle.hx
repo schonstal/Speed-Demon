@@ -64,6 +64,12 @@ class Obstacle extends FlxSprite
     super.update(elapsed);
 
     y = -CEL_HEIGHT * row + SPEED * Reg.trackPosition;
+
+    if (lane == Reg.player.lane &&
+        y >= Player.POSITION - height &&
+        y <= Player.POSITION + Reg.player.height) {
+      Reg.player.hurt(25);
+    }
   }
 
   public override function kill():Void {

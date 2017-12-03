@@ -68,10 +68,6 @@ class PlayState extends FlxState
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
 
-    FlxG.overlap(Reg.player, obstacleGroup, function(player:FlxObject, obstacle:FlxObject):Void {
-      player.hurt(25);
-    });
-
     Reg.trackPosition += elapsed;
 
     recordHighScores();

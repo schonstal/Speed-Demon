@@ -12,13 +12,17 @@ import flixel.util.FlxTimer;
 import flixel.util.FlxSpriteUtil;
 
 class Player extends FlxSprite {
+  public static var POSITION = 258;
+
+  // no such thing as a private variable in a game jam
+  public var lane:Int = 0;
+
   var justHurt:Bool = false;
-  var lane:Int = 0;
 
   public function new() {
     super();
     x = 60;
-    y = 258;
+    y = POSITION;
     loadGraphic("assets/images/player/player.png", true, 30, 30);
 
     animation.add("idle", [0], 15, true);
