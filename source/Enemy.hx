@@ -15,7 +15,11 @@ class Enemy extends Obstacle
 {
   public function new() {
     super();
-    loadGraphic("assets/images/enemy.png", true, 30, 30);
+    loadGraphic("assets/images/goat1.png", true, 30, 30);
+
+    animation.add("idle", [0], 10, true);
+    animation.add("oddIdle", [1], 10, true);
+    animation.play("idle");
 
     width = 8;
     height = 8;

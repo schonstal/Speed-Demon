@@ -25,10 +25,10 @@ class Obstacle extends FlxSprite
     x = 60;
     y = 0;
 
-    loadGraphic("assets/images/obstacle.png", true, 30, 30);
+    loadGraphic("assets/images/enemies/flameskull.png", true, 30, 30);
 
-    animation.add("idle", [0, 1, 2], 10, true);
-    animation.add("oddIdle", [2, 1, 0], 10, true);
+    animation.add("idle", [0], 10, true);
+    animation.add("oddIdle", [1], 10, true);
     animation.play("idle");
 
     width = 8;
