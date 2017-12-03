@@ -14,6 +14,7 @@ import flixel.math.FlxPoint;
 class PlayState extends FlxState
 {
   var obstacleGroup:FlxSpriteGroup;
+  var enemyGroup:FlxSpriteGroup;
 
   override public function create():Void {
     super.create();
@@ -26,12 +27,18 @@ class PlayState extends FlxState
     Reg.player.init();
     Reg.random = new FlxRandom();
 
+    Reg.hazardService = new HazardService();
+
     obstacleGroup = new FlxSpriteGroup();
     Reg.obstacleService = new ObstacleService(obstacleGroup);
     add(obstacleGroup);
 
+    enemyGroup = new FlxSpriteGroup();
+    Reg.enemyService = new EnemyService(enemyGroup);
+    add(enemyGroup);
+
     for(i in 0...100) {
-      Reg.obstacleService.spawnPattern(Reg.random.int(0, 4));
+      Reg.hazardService.spawnPattern(Reg.random.int(0, 4));
     }
 
     FlxG.debugger.drawDebug = true;

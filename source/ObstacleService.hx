@@ -21,25 +21,6 @@ class ObstacleService {
     return obstacle;
   }
 
-  public function spawnPattern(patternIndex:Int) {
-    var pattern = SpawnPatterns.PATTERNS[patternIndex];
-
-    var rows = pattern.split("\n").filter(function(e) {
-      return e != "";
-    });
-
-    rows.reverse();
-
-    for (row in rows) {
-      for (laneIndex in 0...row.length) {
-        if (row.charAt(laneIndex) == "o") {
-          spawn(laneIndex, rowIndex);
-        }
-      }
-      rowIndex++;
-    }
-  }
-
   function recycle(lane:Int, row:Int):Obstacle {
     for(p in obstacles) {
       if(!p.exists) {

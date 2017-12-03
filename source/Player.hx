@@ -20,11 +20,10 @@ class Player extends FlxSprite
     super();
     x = 60;
     y = 258;
-    loadGraphic("assets/images/player/player.png", true, 32, 32);
+    loadGraphic("assets/images/player/player.png", true, 30, 30);
 
-    animation.add("idle", [5], 15, true);
+    animation.add("idle", [0], 15, true);
     animation.play("idle");
-    angle = 180;
 
     width = 8;
     height = 8;
@@ -75,6 +74,8 @@ class Player extends FlxSprite
 
     x = 60 + (lane * 30);
     //x = FlxG.mouse.x;
+
+    y = 258 + (10 * Math.sin(Reg.trackPosition * Reg.TAU));
   }
 
   public override function kill():Void {

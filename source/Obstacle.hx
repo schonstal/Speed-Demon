@@ -25,12 +25,11 @@ class Obstacle extends FlxSprite
     x = 60;
     y = 0;
 
-    loadGraphic("assets/images/player/player.png", true, 32, 32);
+    loadGraphic("assets/images/obstacle.png", true, 30, 30);
 
-    animation.add("idle", [2, 3, 4], 10, true);
-    animation.add("oddIdle", [4, 3, 2], 10, true);
+    animation.add("idle", [0, 1, 2], 10, true);
+    animation.add("oddIdle", [2, 1, 0], 10, true);
     animation.play("idle");
-    angle = 180;
 
     width = 8;
     height = 8;
