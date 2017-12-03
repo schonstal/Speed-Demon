@@ -65,6 +65,11 @@ class Obstacle extends FlxSprite
 
     y = -CEL_HEIGHT * row + SPEED * Reg.trackPosition;
 
+    if (y >= FlxG.height + offset.y || !exists) {
+      exists = false;
+      return;
+    }
+
     if (lane == Reg.player.lane &&
         y >= Player.POSITION - height &&
         y <= Player.POSITION + Reg.player.height) {

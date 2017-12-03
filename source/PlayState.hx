@@ -13,6 +13,9 @@ import flixel.math.FlxPoint;
 
 class PlayState extends FlxState
 {
+  var spawnRate:Float = 0.5;
+  var spawnAmt:Float = 0;
+
   var obstacleGroup:FlxSpriteGroup;
   var enemyGroup:FlxSpriteGroup;
   var playerLaserGroup:FlxSpriteGroup;
@@ -23,7 +26,6 @@ class PlayState extends FlxState
 
     initializeRegistry();
     registerServices();
-    spawnPatterns();
 
     FlxG.debugger.drawDebug = true;
 
@@ -54,18 +56,17 @@ class PlayState extends FlxState
 
   }
 
-  function spawnPatterns() {
-    for(i in 0...100) {
-      Reg.hazardService.spawnPattern(Reg.random.int(0, 4));
-    }
-  }
-
-
   override public function destroy():Void {
     super.destroy();
   }
 
   override public function update(elapsed:Float):Void {
+    spawnAmt += elapsed;
+    if (spawnAmt >= spawnRate) {
+      Reg.hazardService.spawnPattern(Reg.random.int(0, 4));
+      spawnAmt = 0;
+    }
+
     super.update(elapsed);
 
     Reg.trackPosition += elapsed;
