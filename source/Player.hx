@@ -11,8 +11,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxTimer;
 import flixel.util.FlxSpriteUtil;
 
-class Player extends FlxSprite
-{
+class Player extends FlxSprite {
   var justHurt:Bool = false;
   var lane:Int = 0;
 
