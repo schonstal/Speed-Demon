@@ -37,12 +37,12 @@ o--o
 ----
 -oo-
 ",
-
 "
-ooo-
-oo-o
-o-oo
--ooo
+-oo-
+-eeo
+-oo-
+oee-
+-oo-
 "
   ];
 }

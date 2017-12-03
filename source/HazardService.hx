@@ -20,13 +20,11 @@ class HazardService {
 
     for (row in rows) {
       for (laneIndex in 0...row.length) {
-        switch(row.charAt(laneIndex)) {
-          case "o":
-            Reg.obstacleService.spawn(laneIndex, rowIndex);
-            break;
-          case "e":
-            Reg.enemyService.spawn(laneIndex, rowIndex);
-            break;
+        var char = row.charAt(laneIndex);
+        if (char == "o") {
+          Reg.obstacleService.spawn(laneIndex, rowIndex);
+        } else if (char == "e") {
+          Reg.enemyService.spawn(laneIndex, rowIndex);
         }
       }
       rowIndex++;

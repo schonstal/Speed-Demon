@@ -34,20 +34,22 @@ class Player extends FlxSprite
 
     setFacingFlip(FlxObject.LEFT, true, false);
     setFacingFlip(FlxObject.RIGHT, false, false);
+
+    init();
   }
 
   public function init():Void {
     Reg.player = this;
 
     facing = FlxObject.RIGHT;
-    health = 100;
+    health = 100000;
   }
 
   public override function hurt(damage:Float):Void {
     if(justHurt && damage < 100) return;
 
     FlxG.camera.flash(0xccff1472, 0.5, null, true);
-    FlxG.camera.shake(0.005, 0.2);
+    FlxG.camera.shake(0.01, 0.2);
     Reg.combo = 0;
 
     justHurt = true;
@@ -72,10 +74,12 @@ class Player extends FlxSprite
       lane = 3;
     }
 
+    if (FlxG.keys.justPressed.SPACE) {
+      Reg.playerLaserService.shoot(lane);
+    }
+
     x = 60 + (lane * 30);
     //x = FlxG.mouse.x;
-
-    y = 258 + (10 * Math.sin(Reg.trackPosition * Reg.TAU));
   }
 
   public override function kill():Void {

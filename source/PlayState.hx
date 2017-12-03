@@ -15,36 +15,51 @@ class PlayState extends FlxState
 {
   var obstacleGroup:FlxSpriteGroup;
   var enemyGroup:FlxSpriteGroup;
+  var playerLaserGroup:FlxSpriteGroup;
 
   override public function create():Void {
     super.create();
     FlxG.timeScale = 1;
-    Reg.trackPosition = 0;
+
+    initializeRegistry();
+    registerServices();
+    spawnPatterns();
+
+    FlxG.debugger.drawDebug = true;
 
     add(new Background());
+    add(Reg.player);
+    add(enemyGroup);
+    add(obstacleGroup);
+    add(playerLaserGroup);
+  }
 
-    Reg.player = new Player();
-    Reg.player.init();
+  function initializeRegistry() {
+    Reg.trackPosition = 0;
     Reg.random = new FlxRandom();
+    Reg.player = new Player();
+  }
 
+  function registerServices() {
     Reg.hazardService = new HazardService();
 
     obstacleGroup = new FlxSpriteGroup();
     Reg.obstacleService = new ObstacleService(obstacleGroup);
-    add(obstacleGroup);
 
     enemyGroup = new FlxSpriteGroup();
     Reg.enemyService = new EnemyService(enemyGroup);
-    add(enemyGroup);
 
+    playerLaserGroup = new FlxSpriteGroup();
+    Reg.playerLaserService = new LaserService(playerLaserGroup);
+
+  }
+
+  function spawnPatterns() {
     for(i in 0...100) {
       Reg.hazardService.spawnPattern(Reg.random.int(0, 4));
     }
-
-    FlxG.debugger.drawDebug = true;
-
-    add(Reg.player);
   }
+
 
   override public function destroy():Void {
     super.destroy();
