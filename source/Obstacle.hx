@@ -13,20 +13,29 @@ import flixel.util.FlxSpriteUtil;
 
 class Obstacle extends FlxSprite
 {
+  public static var CEL_WIDTH:Int = 30;
+  public static var CEL_HEIGHT:Int = 30;
+  public static var SPEED:Float = 200;
+
   var lane:Int = 0;
+  var row:Int = 0;
 
   public function new() {
     super();
     x = 60;
     y = 0;
 
-    velocity.y = 200;
-
     loadGraphic("assets/images/player/player.png", true, 32, 32);
 
-    animation.add("idle", [2, 3, 4], 30, true);
+    animation.add("idle", [2, 3, 4], 10, true);
+    animation.add("oddIdle", [4, 3, 2], 10, true);
     animation.play("idle");
     angle = 180;
+
+    width = 8;
+    height = 8;
+    offset.x = 12;
+    offset.y = 12;
 
     FlxG.mouse.visible = false;
 
@@ -34,18 +43,28 @@ class Obstacle extends FlxSprite
     setFacingFlip(FlxObject.RIGHT, false, false);
   }
 
-  public function initialize(startLane):Void {
+  public function initialize(startLane, startRow):Void {
     visible = true;
     alive = true;
     solid = true;
     exists = true;
 
     lane = startLane;
-    x = 60 + (lane * 30);
+    row = startRow;
+
+    if(row % 2 == 0) {
+      animation.play("idle", true);
+    } else {
+      animation.play("oddIdle", true);
+    }
+
+    x = 60 + (lane * CEL_WIDTH);
   }
 
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
+
+    y = -CEL_HEIGHT * row + SPEED * Reg.trackPosition;
   }
 
   public override function kill():Void {

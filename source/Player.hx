@@ -26,6 +26,11 @@ class Player extends FlxSprite
     animation.play("idle");
     angle = 180;
 
+    width = 8;
+    height = 8;
+    offset.x = 12;
+    offset.y = 12;
+
     FlxG.mouse.visible = false;
 
     setFacingFlip(FlxObject.LEFT, true, false);

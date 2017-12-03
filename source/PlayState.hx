@@ -18,6 +18,7 @@ class PlayState extends FlxState
   override public function create():Void {
     super.create();
     FlxG.timeScale = 1;
+    Reg.trackPosition = 0;
 
     add(new Background());
 
@@ -29,7 +30,11 @@ class PlayState extends FlxState
     Reg.obstacleService = new ObstacleService(obstacleGroup);
     add(obstacleGroup);
 
-    Reg.obstacleService.spawnPattern(0);
+    for(i in 0...100) {
+      Reg.obstacleService.spawnPattern(Reg.random.int(0, 4));
+    }
+
+    FlxG.debugger.drawDebug = true;
 
     add(Reg.player);
   }
@@ -40,6 +45,12 @@ class PlayState extends FlxState
 
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
+
+    FlxG.overlap(Reg.player, obstacleGroup, function(player:FlxObject, obstacle:FlxObject):Void {
+      player.hurt(25);
+    });
+
+    Reg.trackPosition += elapsed;
 
     recordHighScores();
   }
