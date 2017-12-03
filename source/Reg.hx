@@ -7,7 +7,11 @@ import flixel.math.FlxRandom;
 import flixel.group.FlxSpriteGroup;
 
 class Reg {
+  public static var LANE_COUNT:Int = 3;
+
   public static var random:FlxRandom;
+
+  public static var obstacleService:ObstacleService;
 
   public static var initialized:Bool = false;
   public static var started:Bool = false;

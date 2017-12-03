@@ -13,12 +13,21 @@ import flixel.math.FlxPoint;
 
 class PlayState extends FlxState
 {
+  var obstacleGroup:FlxSpriteGroup;
+
   override public function create():Void {
     super.create();
     FlxG.timeScale = 1;
 
     Reg.player = new Player();
     Reg.player.init();
+    Reg.random = new FlxRandom();
+
+    obstacleGroup = new FlxSpriteGroup();
+    Reg.obstacleService = new ObstacleService(obstacleGroup);
+    add(obstacleGroup);
+
+    Reg.obstacleService.spawnPattern(0);
 
     add(Reg.player);
   }

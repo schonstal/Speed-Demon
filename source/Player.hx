@@ -14,16 +14,19 @@ import flixel.util.FlxSpriteUtil;
 class Player extends FlxSprite
 {
   var justHurt:Bool = false;
+  var lane:Int = 0;
 
-  public function new(X:Float=0,Y:Float=0) {
+  public function new() {
     super();
-    x = X;
-    y = Y;
+    x = 60;
+    y = 258;
     loadGraphic("assets/images/player/player.png", true, 32, 32);
 
     animation.add("idle", [5], 15, true);
     animation.play("idle");
     angle = 180;
+
+    FlxG.mouse.visible = false;
 
     setFacingFlip(FlxObject.LEFT, true, false);
     setFacingFlip(FlxObject.RIGHT, false, false);
@@ -54,6 +57,19 @@ class Player extends FlxSprite
 
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
+
+    if (FlxG.keys.justPressed.A) {
+      lane = 0;
+    } else if (FlxG.keys.justPressed.S) {
+      lane = 1;
+    } else if (FlxG.keys.justPressed.D) {
+      lane = 2;
+    } else if (FlxG.keys.justPressed.F) {
+      lane = 3;
+    }
+
+    x = 60 + (lane * 30);
+    //x = FlxG.mouse.x;
   }
 
   public override function kill():Void {
