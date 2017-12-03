@@ -19,6 +19,8 @@ class PlayState extends FlxState
     super.create();
     FlxG.timeScale = 1;
 
+    add(new Background());
+
     Reg.player = new Player();
     Reg.player.init();
     Reg.random = new FlxRandom();
