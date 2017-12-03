@@ -34,6 +34,8 @@ class PlayState extends FlxState
     add(enemyGroup);
     add(obstacleGroup);
     add(playerLaserGroup);
+
+    add(new ShootingEnemy());
   }
 
   function initializeRegistry() {
