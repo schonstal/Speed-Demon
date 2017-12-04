@@ -35,15 +35,15 @@ class LaserGroup extends FlxSpriteGroup {
 
     x = Reg.LANE_OFFSET + Reg.LANE_WIDTH * lane - 3;
 
+    laserSprite.loadGraphic('assets/images/$type/laser.png', true, 12, 320);
+    laserSprite.animation.add("shoot", [0, 2, 0, 1, 2, 3, 4], 30, false);
+    laserSprite.animation.finishCallback = onAnimationComplete;
+
     if (type == "player") {
       y = Reg.player.y - height - 6;
     } else {
       y = 50;
     }
-
-    laserSprite.loadGraphic('assets/images/$type/laser.png', true, 12, 320);
-    laserSprite.animation.add("shoot", [0, 2, 0, 1, 2, 3, 4], 30, false);
-    laserSprite.animation.finishCallback = onAnimationComplete;
   }
 
   public function shoot():Void {
