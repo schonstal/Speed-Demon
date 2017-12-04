@@ -11,8 +11,7 @@ import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 import flixel.math.FlxPoint;
 
-class PlayState extends FlxState
-{
+class PlayState extends FlxState {
   var spawnRate:Float = 0.5;
   var spawnAmt:Float = 0;
 

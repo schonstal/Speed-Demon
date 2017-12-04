@@ -13,24 +13,24 @@ class LaserService {
     this.group = group;
   }
 
-  public function shoot(lane:Int):LaserGroup {
-    var laserGroup = recycle(lane);
+  public function shoot(lane:Int, type:String = "player"):LaserGroup {
+    var laserGroup = recycle(lane, type);
     group.add(laserGroup);
     laserGroup.shoot();
 
     return laserGroup;
   }
 
-  function recycle(lane:Int):LaserGroup {
+  function recycle(lane:Int, type:String):LaserGroup {
     for(p in laserGroups) {
       if(!p.exists) {
-        p.initialize(lane);
+        p.initialize(lane, type);
         return p;
       }
     }
 
     var laserGroup:LaserGroup = new LaserGroup();
-    laserGroup.initialize(lane);
+    laserGroup.initialize(lane, type);
     laserGroups.push(laserGroup);
 
     return laserGroup;
