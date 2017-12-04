@@ -20,6 +20,10 @@ class PlayState extends FlxState {
   var playerLaserGroup:FlxSpriteGroup;
   var teleportGroup:FlxSpriteGroup;
   var explosionGroup:FlxSpriteGroup;
+  var gameOverGroup:GameOverGroup;
+  var hud:HUD;
+
+  var gameOver:Bool = false;
 
   override public function create():Void {
     super.create();
@@ -30,6 +34,10 @@ class PlayState extends FlxState {
 
     FlxG.debugger.drawDebug = true;
 
+    hud = new HUD();
+    gameOverGroup = new GameOverGroup();
+    gameOverGroup.exists = false;
+
     add(new Background());
     add(new SpeedLines());
     add(new ExhaustGroup());
@@ -39,10 +47,10 @@ class PlayState extends FlxState {
     add(playerLaserGroup);
     add(teleportGroup);
     add(explosionGroup);
+    add(hud);
+    add(gameOverGroup);
 
     //add(new ShootingEnemy());
-
-    add(new HUD());
   }
 
   function initializeRegistry() {
@@ -97,6 +105,28 @@ class PlayState extends FlxState {
     }
 
     Reg.trackPosition += elapsed * (1 + Reg.speed/100);
+
+
+    if (!Reg.player.alive) {
+      if (FlxG.keys.justPressed.R) {
+        FlxG.switchState(new PlayState());
+      }
+
+      if (!gameOver) {
+        FlxG.save.flush();
+        //FlxG.sound.music.stop();
+        FlxG.timeScale = 0.2;
+        new FlxTimer().start(0.1, function(t) {
+          gameOverGroup.exists = true;
+          hud.exists = false;
+          FlxTween.tween(FlxG, { timeScale: 1 }, 0.5, { ease: FlxEase.quartOut, onComplete: function(t) {
+            FlxG.timeScale = 1;
+          }});
+        });
+      }
+
+      gameOver = true;
+    }
 
     recordHighScores();
   }
