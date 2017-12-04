@@ -73,10 +73,6 @@ class PlayState extends FlxState {
       spawnAmt = 0;
     }
 
-    if (FlxG.keys.justPressed.Q) {
-      Reg.player.health = 1000;
-    }
-
     super.update(elapsed);
 
     if (Reg.speed > 100) {
@@ -85,6 +81,10 @@ class PlayState extends FlxState {
 
     if (Reg.speed < 0) {
       Reg.speed = 0;
+    }
+
+    if (Reg.speed > 25) {
+      FlxG.camera.shake(0.004 * Reg.speed/100, 0.2);
     }
 
     Reg.trackPosition += elapsed * (1 + Reg.speed/100);

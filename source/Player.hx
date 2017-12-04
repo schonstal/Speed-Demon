@@ -80,7 +80,7 @@ class Player extends FlxSprite {
       Reg.playerLaserService.shoot(lane);
     } else {
       if (!FlxG.keys.pressed.SPACE) {
-        Reg.speed += 10 * elapsed;
+        Reg.speed += 5 * elapsed;
       }
 
       if (FlxG.keys.justPressed.A) {
