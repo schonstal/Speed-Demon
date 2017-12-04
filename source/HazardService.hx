@@ -10,7 +10,7 @@ class HazardService {
   }
 
   public function spawnPattern(patternIndex:Int) {
-    var pattern = SpawnPatterns.PATTERNS[patternIndex];
+    var pattern = SpawnPatterns.PATTERNS[0][patternIndex];
 
     var rows = pattern.split("\n").filter(function(e) {
       return e != "";

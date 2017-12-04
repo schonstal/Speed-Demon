@@ -1,5 +1,52 @@
 class SpawnPatterns {
-  public static var PATTERNS = [
+  public static var PATTERNS = [[
+// EASY
+"
+-e--
+----
+--o-
+----
+-o--
+----
+--e-
+----
+",
+
+"
+e--e
+----
+o---
+----
+----
+----
+--eo
+----
+",
+
+"
+e--e
+----
+---o
+----
+----
+----
+oe--
+----
+",
+"
+e--e
+----
+e--e
+----
+e--e
+----
+e--e
+----
+"
+],
+
+// INTERMEDIATE
+[
 "
 ---o
 ----
@@ -9,18 +56,25 @@ class SpawnPatterns {
 ----
 o---
 ",
+"
+",
+
+"
+e--o
+o--e
+----
+-eo-
+-oe-
+",
 
 "
 o---
 ----
-----
 -e--
 -o--
 ----
-----
 --e-
 --o-
-----
 ----
 ---e
 ---o
@@ -66,5 +120,24 @@ oee-
 -oo-
 -oo-
 "
-  ];
+],
+
+// HARD
+[
+"
+--eo
+oe--
+--eo
+oe--
+",
+
+"
+--e-
+o-oe
+o-eo
+oe-o
+eo-o
+--e-
+",
+]];
 }

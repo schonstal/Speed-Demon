@@ -18,6 +18,7 @@ class PlayState extends FlxState {
   var obstacleGroup:FlxSpriteGroup;
   var enemyGroup:FlxSpriteGroup;
   var playerLaserGroup:FlxSpriteGroup;
+  var teleportGroup:FlxSpriteGroup;
 
   override public function create():Void {
     super.create();
@@ -35,6 +36,7 @@ class PlayState extends FlxState {
     add(enemyGroup);
     add(obstacleGroup);
     add(playerLaserGroup);
+    add(teleportGroup);
 
     //add(new ShootingEnemy());
 
@@ -60,6 +62,8 @@ class PlayState extends FlxState {
     playerLaserGroup = new FlxSpriteGroup();
     Reg.playerLaserService = new LaserService(playerLaserGroup);
 
+    teleportGroup = new FlxSpriteGroup();
+    Reg.teleportService = new TeleportService(teleportGroup);
   }
 
   override public function destroy():Void {
@@ -69,7 +73,7 @@ class PlayState extends FlxState {
   override public function update(elapsed:Float):Void {
     spawnAmt += elapsed;
     if (spawnAmt >= spawnRate) {
-      Reg.hazardService.spawnPattern(Reg.random.int(0, 4));
+      Reg.hazardService.spawnPattern(Reg.random.int(0, SpawnPatterns.PATTERNS[0].length));
       spawnAmt = 0;
     }
 

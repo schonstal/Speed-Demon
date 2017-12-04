@@ -84,12 +84,16 @@ class Player extends FlxSprite {
       }
 
       if (FlxG.keys.justPressed.A) {
+        Reg.teleportService.teleport(lane, 0);
         lane = 0;
       } else if (FlxG.keys.justPressed.S) {
+        Reg.teleportService.teleport(lane, 1);
         lane = 1;
       } else if (FlxG.keys.justPressed.D) {
+        Reg.teleportService.teleport(lane, 2);
         lane = 2;
       } else if (FlxG.keys.justPressed.F) {
+        Reg.teleportService.teleport(lane, 3);
         lane = 3;
       }
     }
