@@ -27,8 +27,7 @@ class Obstacle extends FlxSprite
 
     loadGraphic("assets/images/enemies/flameskull.png", true, 30, 30);
 
-    animation.add("idle", [0], 10, true);
-    animation.add("oddIdle", [1], 10, true);
+    animation.add("idle", [0, 1, 2, 3], 15, true);
     animation.play("idle");
 
     width = 8;
@@ -52,12 +51,6 @@ class Obstacle extends FlxSprite
     lane = startLane;
     row = startRow;
 
-    if(row % 2 == 0) {
-      animation.play("idle", true);
-    } else {
-      animation.play("oddIdle", true);
-    }
-
     x = Reg.LANE_OFFSET + (lane * CEL_WIDTH);
   }
 
@@ -75,6 +68,8 @@ class Obstacle extends FlxSprite
         y <= Player.POSITION + Reg.player.height) {
       Reg.player.hurt(15);
     }
+
+    //animation.curAnim.frameRate = Std.int((Reg.speed/100) * 10 + 10);
   }
 
   public override function kill():Void {

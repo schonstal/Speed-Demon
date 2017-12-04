@@ -52,7 +52,7 @@ class ExhaustSprite extends FlxSprite {
       return;
     }
 
-    y = Reg.player.y - Reg.player.offset.y + 28;
+    y = Reg.player.y - Reg.player.offset.y + 27;
     if (lane == Reg.player.lane) {
       visible = true;
       wasAlive = true;
