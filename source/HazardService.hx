@@ -26,6 +26,9 @@ class HazardService {
           Reg.obstacleService.spawn(laneIndex, rowIndex);
         } else if (char == "e") {
           Reg.enemyService.spawn(laneIndex, rowIndex);
+          // TODO: Think about this later
+        } else if (false && char == "^" && Reg.random.float(0, 1) < 0.25) {
+          Reg.boostService.spawn(laneIndex, rowIndex);
         }
       }
       rowIndex++;

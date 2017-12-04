@@ -17,6 +17,7 @@ class PlayState extends FlxState {
 
   var obstacleGroup:FlxSpriteGroup;
   var enemyGroup:FlxSpriteGroup;
+  var boostGroup:FlxSpriteGroup;
   var playerLaserGroup:FlxSpriteGroup;
   var teleportGroup:FlxSpriteGroup;
   var explosionGroup:FlxSpriteGroup;
@@ -46,11 +47,11 @@ class PlayState extends FlxState {
     add(obstacleGroup);
     add(playerLaserGroup);
     add(teleportGroup);
+    add(new ShootingEnemy());
     add(explosionGroup);
+    add(boostGroup);
     add(hud);
     add(gameOverGroup);
-
-    add(new ShootingEnemy());
   }
 
   function initializeRegistry() {
@@ -77,6 +78,9 @@ class PlayState extends FlxState {
 
     explosionGroup = new FlxSpriteGroup();
     Reg.explosionService = new ExplosionService(explosionGroup);
+
+    boostGroup = new FlxSpriteGroup();
+    Reg.boostService = new BoostService(boostGroup);
   }
 
   override public function destroy():Void {

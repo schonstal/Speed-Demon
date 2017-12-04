@@ -66,10 +66,14 @@ class Obstacle extends FlxSprite
     if (lane == Reg.player.lane &&
         y >= Player.POSITION - height &&
         y <= Player.POSITION + Reg.player.height) {
-      Reg.player.hurt(15);
+      onCollide();
     }
 
     //animation.curAnim.frameRate = Std.int((Reg.speed/100) * 10 + 10);
+  }
+
+  function onCollide() {
+    Reg.player.hurt(15);
   }
 
   public override function kill():Void {

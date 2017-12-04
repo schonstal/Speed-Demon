@@ -15,6 +15,7 @@ class Reg {
 
   public static var obstacleService:ObstacleService;
   public static var enemyService:EnemyService;
+  public static var boostService:BoostService;
   public static var hazardService:HazardService;
   public static var playerLaserService:LaserService;
   public static var teleportService:TeleportService;
