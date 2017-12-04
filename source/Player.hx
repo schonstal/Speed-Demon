@@ -45,7 +45,7 @@ class Player extends FlxSprite {
     Reg.player = this;
 
     facing = FlxObject.RIGHT;
-    health = 100000;
+    health = 100;
   }
 
   public override function hurt(damage:Float):Void {

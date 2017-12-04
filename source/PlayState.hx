@@ -36,12 +36,15 @@ class PlayState extends FlxState
     add(playerLaserGroup);
 
     add(new ShootingEnemy());
+
+    add(new HUD());
   }
 
   function initializeRegistry() {
     Reg.trackPosition = 0;
     Reg.random = new FlxRandom();
     Reg.player = new Player();
+    Reg.speed = 25;
   }
 
   function registerServices() {
@@ -67,6 +70,14 @@ class PlayState extends FlxState
     if (spawnAmt >= spawnRate) {
       Reg.hazardService.spawnPattern(Reg.random.int(0, 4));
       spawnAmt = 0;
+    }
+
+    if (FlxG.keys.justPressed.Q) {
+      Reg.speed += 25;
+      if (Reg.speed >= 100) {
+        Reg.speed = 100;
+      }
+      FlxG.timeScale = 1.5;
     }
 
     super.update(elapsed);

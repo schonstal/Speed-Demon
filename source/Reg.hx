@@ -26,6 +26,7 @@ class Reg {
   public static var combo:Int;
 
   public static var trackPosition:Float = 0;
+  public static var speed:Float = 25;
 
   public static var hardMode:Bool = false;
 
