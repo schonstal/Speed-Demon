@@ -18,6 +18,7 @@ class Reg {
   public static var hazardService:HazardService;
   public static var playerLaserService:LaserService;
   public static var teleportService:TeleportService;
+  public static var explosionService:ExplosionService;
 
   public static var initialized:Bool = false;
   public static var started:Bool = false;

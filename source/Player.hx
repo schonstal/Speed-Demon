@@ -49,7 +49,7 @@ class Player extends FlxSprite {
   }
 
   public override function hurt(damage:Float):Void {
-    if(justHurt && damage < 100) return;
+    if(!alive || justHurt && damage < 100) return;
 
     FlxG.camera.flash(0xccff1472, 0.5, null, true);
     FlxG.camera.shake(0.01, 0.2);
@@ -105,6 +105,7 @@ class Player extends FlxSprite {
     alive = false;
     solid = false;
     exists = false;
+    Reg.explosionService.explode(x + width/2, y + height/2, 0, 0, true);
     //FlxG.sound.play("assets/sounds/player/die.wav", 1 * FlxG.save.data.sfxVolume);
   }
 }

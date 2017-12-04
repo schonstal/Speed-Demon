@@ -47,6 +47,11 @@ class ExhaustSprite extends FlxSprite {
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
 
+    if (!Reg.player.alive) {
+      kill();
+      return;
+    }
+
     y = Reg.player.y - Reg.player.offset.y + 28;
     if (lane == Reg.player.lane) {
       visible = true;
