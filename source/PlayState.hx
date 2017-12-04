@@ -30,7 +30,7 @@ class PlayState extends FlxState
     FlxG.debugger.drawDebug = true;
 
     add(new Background());
-    //add(new SpeedLines());
+    add(new SpeedLines());
     add(Reg.player);
     add(enemyGroup);
     add(obstacleGroup);

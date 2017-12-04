@@ -14,8 +14,6 @@ import flixel.util.FlxColor;
 
 class SpeedLineParticle extends FlxSprite
 {
-  var depth:Int = 0;
-
   public function new() {
     super();
     x = Reg.LANE_OFFSET;
@@ -29,9 +27,8 @@ class SpeedLineParticle extends FlxSprite
     x = Reg.random.int(Reg.LANE_OFFSET, FlxG.width - Reg.LANE_OFFSET);
     y = -20;
 
-    depth = Reg.random.int(1, 10);
-    makeGraphic(1, depth * 2, FlxColor.fromHSB(160 + (depth/10) * 200, 1, depth/15));
-    velocity.y = 100 * depth;
+    makeGraphic(1, 20, FlxColor.fromHSB(180, 0.3, 0.2));
+    velocity.y = 1000;
   }
 
   override public function update(elapsed:Float):Void {
