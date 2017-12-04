@@ -22,7 +22,7 @@ class Obstacle extends FlxSprite
 
   public function new() {
     super();
-    x = 60;
+    x = Reg.LANE_OFFSET;
     y = 0;
 
     loadGraphic("assets/images/enemies/flameskull.png", true, 30, 30);
@@ -57,7 +57,7 @@ class Obstacle extends FlxSprite
       animation.play("oddIdle", true);
     }
 
-    x = 60 + (lane * CEL_WIDTH);
+    x = Reg.LANE_OFFSET + (lane * CEL_WIDTH);
   }
 
   override public function update(elapsed:Float):Void {

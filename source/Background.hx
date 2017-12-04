@@ -6,7 +6,7 @@ import flixel.group.FlxGroup;
 
 class Background extends FlxGroup
 {
-  public static var SCROLL_SPEED = 400;
+  public static var SCROLL_SPEED = 600;
 
   public function new() {
     super();

@@ -21,7 +21,7 @@ class Player extends FlxSprite {
 
   public function new() {
     super();
-    x = 60;
+    x = Reg.LANE_OFFSET;
     y = POSITION;
     loadGraphic("assets/images/player/player.png", true, 30, 30);
 
@@ -55,6 +55,11 @@ class Player extends FlxSprite {
     FlxG.camera.shake(0.01, 0.2);
     Reg.combo = 0;
 
+    Reg.speed -= 25;
+    if(Reg.speed < 0) {
+      Reg.speed = 0;
+    }
+
     justHurt = true;
     FlxSpriteUtil.flicker(this, 0.6, 0.04, true, true, function(flicker) {
       justHurt = false;
@@ -79,9 +84,11 @@ class Player extends FlxSprite {
 
     if (FlxG.keys.justPressed.SPACE) {
       Reg.playerLaserService.shoot(lane);
+      Reg.speed -= 5;
+      if (Reg.speed < 0) Reg.speed = 0;
     }
 
-    x = 60 + (lane * 30);
+    x = Reg.LANE_OFFSET + (lane * 30);
     //x = FlxG.mouse.x;
   }
 

@@ -22,7 +22,7 @@ class PlayState extends FlxState
 
   override public function create():Void {
     super.create();
-    FlxG.timeScale = 1;
+    FlxG.timeScale = 0.5;
 
     initializeRegistry();
     registerServices();
@@ -44,7 +44,7 @@ class PlayState extends FlxState
     Reg.trackPosition = 0;
     Reg.random = new FlxRandom();
     Reg.player = new Player();
-    Reg.speed = 25;
+    Reg.speed = 0;
   }
 
   function registerServices() {
@@ -77,7 +77,6 @@ class PlayState extends FlxState
       if (Reg.speed >= 100) {
         Reg.speed = 100;
       }
-      FlxG.timeScale = 1.5;
     }
 
     super.update(elapsed);

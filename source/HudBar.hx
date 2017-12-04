@@ -19,6 +19,7 @@ class HudBar extends FlxSpriteGroup {
     if (newValue != value && width > 0) {
       bar.makeGraphic(width, Std.int(bar.height), 0xffffffff);
       bar.x = barBackground.x + barBackground.width - 4 - bar.width;
+      bar.visible = true;
     } else if (width <= 0) {
       bar.visible = false;
     }
