@@ -73,7 +73,7 @@ class ShootingEnemy extends FlxSprite {
     }
 
     if (lane == Reg.player.lane && Reg.player.alive && Reg.player.shooting) {
-      hurt(elapsed * 200);
+      hurt(elapsed * 400);
     }
 
     shootTimer += elapsed;
