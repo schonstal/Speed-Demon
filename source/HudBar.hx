@@ -10,6 +10,7 @@ import flixel.math.FlxPoint;
 class HudBar extends FlxSpriteGroup {
   var barBackground:FlxSprite;
   var bar:FlxSprite;
+  var invert:Bool = false;
 
   public var value(default, set):Float;
 
@@ -18,7 +19,9 @@ class HudBar extends FlxSpriteGroup {
 
     if (newValue != value && width > 0) {
       bar.makeGraphic(width, Std.int(bar.height), 0xffffffff);
-      bar.x = barBackground.x + barBackground.width - 4 - bar.width;
+      if (invert) {
+        bar.x = barBackground.x + barBackground.width - 4 - bar.width;
+      }
       bar.visible = true;
     } else if (width <= 0) {
       bar.visible = false;
@@ -27,7 +30,7 @@ class HudBar extends FlxSpriteGroup {
     return value = newValue;
   }
 
-  public function new(X:Float, Y:Float, color:Int):Void {
+  public function new(X:Float, Y:Float, color:Int, invert:Bool = false):Void {
     super();
     barBackground = new FlxSprite(0, 0);
     barBackground.loadGraphic("assets/images/hud/bar.png");
@@ -42,6 +45,8 @@ class HudBar extends FlxSpriteGroup {
       0xffffffff
     );
     bar.color = color;
+
+    this.invert = invert;
 
     add(bar);
   }

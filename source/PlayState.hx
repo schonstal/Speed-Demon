@@ -21,7 +21,7 @@ class PlayState extends FlxState {
 
   override public function create():Void {
     super.create();
-    FlxG.timeScale = 1;
+    FlxG.timeScale = 0.5;
 
     initializeRegistry();
     registerServices();
@@ -30,12 +30,13 @@ class PlayState extends FlxState {
 
     add(new Background());
     add(new SpeedLines());
+    add(new ExhaustGroup());
     add(Reg.player);
     add(enemyGroup);
     add(obstacleGroup);
     add(playerLaserGroup);
 
-    add(new ShootingEnemy());
+    //add(new ShootingEnemy());
 
     add(new HUD());
   }
@@ -73,15 +74,20 @@ class PlayState extends FlxState {
     }
 
     if (FlxG.keys.justPressed.Q) {
-      Reg.speed += 25;
-      if (Reg.speed >= 100) {
-        Reg.speed = 100;
-      }
+      Reg.player.health = 1000;
     }
 
     super.update(elapsed);
 
-    Reg.trackPosition += elapsed;
+    if (Reg.speed > 100) {
+      Reg.speed = 100;
+    }
+
+    if (Reg.speed < 0) {
+      Reg.speed = 0;
+    }
+
+    Reg.trackPosition += elapsed * (1 + Reg.speed/100);
 
     recordHighScores();
   }

@@ -11,68 +11,50 @@ import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxTimer;
 import flixel.util.FlxSpriteUtil;
 
-class Obstacle extends FlxSprite
-{
+class ExhaustSprite extends FlxSprite {
   public static var CEL_WIDTH:Int = 30;
   public static var CEL_HEIGHT:Int = 30;
   public static var SPEED:Float = 200;
 
   var lane:Int = 0;
-  var row:Int = 0;
+  var wasAlive:Bool = false;
 
   public function new() {
     super();
     x = Reg.LANE_OFFSET;
     y = 0;
 
-    loadGraphic("assets/images/enemies/flameskull.png", true, 30, 30);
+    loadGraphic("assets/images/player/exhaust.png", true, 32, 32);
 
-    animation.add("idle", [0], 10, true);
-    animation.add("oddIdle", [1], 10, true);
+    animation.add("idle", [0, 1, 2, 3], 15, true);
+    animation.add("teleport", [4, 5, 6], 15, false);
     animation.play("idle");
-
-    width = 8;
-    height = 8;
-    offset.x = 12;
-    offset.y = 12;
-
-    FlxG.mouse.visible = false;
 
     setFacingFlip(FlxObject.LEFT, true, false);
     setFacingFlip(FlxObject.RIGHT, false, false);
   }
 
-  public function initialize(startLane, startRow):Void {
-    visible = true;
+  public function initialize(startLane):Void {
+    visible = false;
     alive = true;
     solid = true;
     exists = true;
 
     lane = startLane;
-    row = startRow;
-
-    if(row % 2 == 0) {
-      animation.play("idle", true);
-    } else {
-      animation.play("oddIdle", true);
-    }
-
-    x = Reg.LANE_OFFSET + (lane * CEL_WIDTH);
+    x = Reg.LANE_OFFSET + (lane * CEL_WIDTH) - Reg.player.offset.x - 1;
   }
 
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
-    y = -CEL_HEIGHT * row + SPEED * Reg.trackPosition;
 
-    if (y >= FlxG.height + offset.y || !exists) {
-      exists = false;
-      return;
-    }
-
-    if (lane == Reg.player.lane &&
-        y >= Player.POSITION - height &&
-        y <= Player.POSITION + Reg.player.height) {
-      Reg.player.hurt(25);
+    y = Reg.player.y - Reg.player.offset.y + 28;
+    if (lane == Reg.player.lane) {
+      visible = true;
+      wasAlive = true;
+      animation.play("idle");
+    } else if (wasAlive) {
+      animation.play("teleport", true);
+      wasAlive = false;
     }
   }
 

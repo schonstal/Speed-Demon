@@ -34,6 +34,8 @@ class BackgroundLayer extends FlxSpriteGroup
 
   public override function update(elapsed:Float):Void {
     super.update(elapsed);
+    activeSprite.velocity.y = z * Background.SCROLL_SPEED * (1 + Reg.speed/100);
+    bufferSprite.velocity.y = z * Background.SCROLL_SPEED * (1 * Reg.speed/100);
 
     if (activeSprite.y > FlxG.height) {
       var sprite:FlxSprite = activeSprite;

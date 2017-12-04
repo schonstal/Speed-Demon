@@ -14,6 +14,12 @@ class LaserGroup extends FlxSpriteGroup {
   var particles:FlxSpriteGroup;
   var type:String = "player";
 
+  public var complete(get,null):Bool;
+
+  function get_complete():Bool {
+    return !laserSprite.exists;
+  }
+
   public function new():Void {
     super();
 

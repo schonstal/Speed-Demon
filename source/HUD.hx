@@ -14,10 +14,10 @@ class HUD extends FlxSpriteGroup {
   public function new():Void {
     super();
 
-    speedBar = new HudBar(FlxG.width - 84, FlxG.height - 16, 0xff10a08d);
+    speedBar = new HudBar(FlxG.width - 84, FlxG.height - 16, 0xff10a08d, true);
     add(speedBar);
 
-    healthBar = new HudBar(FlxG.width - 84, FlxG.height - 32, 0xffff1472);
+    healthBar = new HudBar(4, FlxG.height - 16, 0xffff1472);
     add(healthBar);
   }
 

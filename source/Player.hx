@@ -72,24 +72,28 @@ class Player extends FlxSprite {
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
 
-    if (FlxG.keys.justPressed.A) {
-      lane = 0;
-    } else if (FlxG.keys.justPressed.S) {
-      lane = 1;
-    } else if (FlxG.keys.justPressed.D) {
-      lane = 2;
-    } else if (FlxG.keys.justPressed.F) {
-      lane = 3;
-    }
-
-    if (FlxG.keys.justPressed.SPACE) {
-      Reg.playerLaserService.shoot(lane);
-      Reg.speed -= 5;
-      if (Reg.speed < 0) Reg.speed = 0;
-    }
-
     x = Reg.LANE_OFFSET + (lane * 30);
-    //x = FlxG.mouse.x;
+
+
+    if (Reg.speed > 0 && FlxG.keys.pressed.SPACE) {
+      Reg.speed -= 100 * elapsed;
+      Reg.playerLaserService.shoot(lane);
+    } else {
+      if (!FlxG.keys.pressed.SPACE) {
+        Reg.speed += 10 * elapsed;
+      }
+
+      if (FlxG.keys.justPressed.A) {
+        lane = 0;
+      } else if (FlxG.keys.justPressed.S) {
+        lane = 1;
+      } else if (FlxG.keys.justPressed.D) {
+        lane = 2;
+      } else if (FlxG.keys.justPressed.F) {
+        lane = 3;
+      }
+    }
+
   }
 
   public override function kill():Void {

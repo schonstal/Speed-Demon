@@ -7,7 +7,7 @@ import flixel.math.FlxRandom;
 import flixel.group.FlxSpriteGroup;
 
 class Reg {
-  public static var LANE_COUNT:Int = 3;
+  public static var LANE_COUNT:Int = 4;
   public static var LANE_OFFSET:Int = 72;
   public static var LANE_WIDTH:Int = 30;
 
