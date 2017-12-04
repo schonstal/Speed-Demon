@@ -72,7 +72,7 @@ class Obstacle extends FlxSprite
     if (lane == Reg.player.lane &&
         y >= Player.POSITION - height &&
         y <= Player.POSITION + Reg.player.height) {
-      Reg.player.hurt(25);
+      Reg.player.hurt(15);
     }
   }
 

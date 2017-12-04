@@ -50,7 +50,7 @@ class PlayState extends FlxState {
     add(hud);
     add(gameOverGroup);
 
-    //add(new ShootingEnemy());
+    add(new ShootingEnemy());
   }
 
   function initializeRegistry() {
@@ -86,7 +86,7 @@ class PlayState extends FlxState {
   override public function update(elapsed:Float):Void {
     spawnAmt += elapsed;
     if (spawnAmt >= spawnRate) {
-      Reg.hazardService.spawnPattern(Reg.random.int(0, SpawnPatterns.PATTERNS[0].length));
+      Reg.hazardService.spawnPattern(Reg.random.int(0, SpawnPatterns.PATTERNS[0].length-1));
       spawnAmt = 0;
     }
 

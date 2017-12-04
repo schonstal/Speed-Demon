@@ -11,6 +11,7 @@ class HazardService {
 
   public function spawnPattern(patternIndex:Int) {
     var pattern = SpawnPatterns.PATTERNS[0][patternIndex];
+    if (pattern == null) return;
 
     var rows = pattern.split("\n").filter(function(e) {
       return e != "";

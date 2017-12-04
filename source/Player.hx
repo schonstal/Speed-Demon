@@ -16,6 +16,7 @@ class Player extends FlxSprite {
 
   // no such thing as a private variable in a game jam
   public var lane:Int = 0;
+  public var shooting:Bool = false;
 
   var justHurt:Bool = false;
 
@@ -51,7 +52,7 @@ class Player extends FlxSprite {
   public override function hurt(damage:Float):Void {
     if(!alive || justHurt && damage < 100) return;
 
-    FlxG.camera.flash(0xccff1472, 0.5, null, true);
+    //FlxG.camera.flash(0xccff1472, 0.5, null, true);
     FlxG.camera.shake(0.01, 0.2);
     Reg.combo = 0;
 
@@ -78,7 +79,9 @@ class Player extends FlxSprite {
     if (Reg.speed > 0 && FlxG.keys.pressed.SPACE) {
       Reg.speed -= 100 * elapsed;
       Reg.playerLaserService.shoot(lane);
+      shooting = true;
     } else {
+      shooting = false;
       if (!FlxG.keys.pressed.SPACE) {
         Reg.speed += 5 * elapsed;
       }
