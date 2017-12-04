@@ -27,7 +27,7 @@ class SpeedLineParticle extends FlxSprite
     x = Reg.random.int(Reg.LANE_OFFSET, FlxG.width - Reg.LANE_OFFSET);
     y = -20;
 
-    makeGraphic(1, 20, FlxColor.fromHSB(180, 0.3, 0.2));
+    makeGraphic(1, Std.int(20 + 20 * Reg.speed/100), FlxColor.fromHSB(180, 0.3, 0.2));
     velocity.y = 1000;
   }
 
@@ -37,6 +37,8 @@ class SpeedLineParticle extends FlxSprite
     if (y >= FlxG.height + offset.y || !exists) {
       exists = false;
     }
+
+    velocity.y = 1000 + Reg.speed * 10;
   }
 
   public override function kill():Void {
