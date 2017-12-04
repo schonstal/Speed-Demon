@@ -21,7 +21,7 @@ class PlayState extends FlxState {
 
   override public function create():Void {
     super.create();
-    FlxG.timeScale = 0.5;
+    FlxG.timeScale = 1;
 
     initializeRegistry();
     registerServices();

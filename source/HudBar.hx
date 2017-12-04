@@ -11,6 +11,7 @@ class HudBar extends FlxSpriteGroup {
   var barBackground:FlxSprite;
   var bar:FlxSprite;
   var invert:Bool = false;
+  var defaultColor:Int;
 
   public var value(default, set):Float;
 
@@ -18,6 +19,12 @@ class HudBar extends FlxSpriteGroup {
     var width:Int = Std.int((barBackground.width - 8) * newValue/100);
 
     if (newValue != value && width > 0) {
+      if (invert && newValue < value) {
+        bar.color = 0xffffffff;
+      } else {
+        bar.color = defaultColor;
+      }
+
       bar.makeGraphic(width, Std.int(bar.height), 0xffffffff);
       if (invert) {
         bar.x = barBackground.x + barBackground.width - 4 - bar.width;
@@ -45,6 +52,7 @@ class HudBar extends FlxSpriteGroup {
       0xffffffff
     );
     bar.color = color;
+    defaultColor = color;
 
     this.invert = invert;
 
