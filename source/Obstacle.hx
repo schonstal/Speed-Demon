@@ -47,6 +47,7 @@ class Obstacle extends FlxSprite
     alive = true;
     solid = true;
     exists = true;
+    health = 100;
 
     lane = startLane;
     row = startRow;

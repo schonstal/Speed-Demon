@@ -17,6 +17,8 @@ class Enemy extends Obstacle {
   public function new() {
     super();
     loadGraphic("assets/images/enemies/goat1.png", true, 30, 30);
+    animation.add("idle", [0, 1, 2, 3], 10);
+    animation.play("idle");
 
     width = 8;
     height = 8;
@@ -24,10 +26,17 @@ class Enemy extends Obstacle {
     offset.y = 12;
   }
 
+  public override function initialize(startLane, startRow):Void {
+    super.initialize(startLane, startRow);
+
+    animation.play("idle", true);
+    animation.frameIndex = row % 4;
+  }
+
   public override function hurt(damage:Float):Void {
     if (!justHurt) {
       justHurt = true;
-      FlxSpriteUtil.flicker(this, 0.1, 0.04, true, true, function(flicker) {
+      FlxSpriteUtil.flicker(this, 0.6, 0.04, true, true, function(flicker) {
         justHurt = false;
       });
     }
@@ -38,12 +47,16 @@ class Enemy extends Obstacle {
 
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
-    if (y < 38) {
-      y += elapsed * 200;
+    if (lane == Reg.player.lane &&
+        Reg.player.alive &&
+        Reg.player.shooting &&
+        y > -60 && y < Reg.player.y) {
+      hurt(1500 * elapsed);
     }
+  }
 
-    if (lane == Reg.player.lane && Reg.player.alive && Reg.player.shooting) {
-      hurt(elapsed * 400);
-    }
+  override public function kill():Void {
+    super.kill();
+    Reg.explosionService.explode(x + 2, y + 4, 0, 0);
   }
 }
