@@ -43,7 +43,10 @@ class ShootingEnemy extends FlxSprite {
     setFacingFlip(FlxObject.LEFT, true, false);
     setFacingFlip(FlxObject.RIGHT, false, false);
 
-    kill();
+    visible = false;
+    alive = false;
+    solid = false;
+    exists = false;
   }
 
   public override function hurt(damage:Float):Void {
@@ -66,6 +69,8 @@ class ShootingEnemy extends FlxSprite {
     health = 100;
     y = -50;
     shootTimer = 0;
+    animation.play("idle");
+    shooting = false;
 
     lane = startLane;
 

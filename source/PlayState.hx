@@ -23,6 +23,7 @@ class PlayState extends FlxState {
   var explosionGroup:FlxSpriteGroup;
   var gameOverGroup:GameOverGroup;
   var hud:HUD;
+  var shootingEnemy:ShootingEnemy;
 
   var titlescreen:FlxSprite;
 
@@ -30,7 +31,7 @@ class PlayState extends FlxState {
 
   override public function create():Void {
     super.create();
-    FlxG.timeScale = 1;
+    FlxG.timeScale = 0.5;
     Reg.time = 30;
     Reg.difficulty = 0;
 
@@ -43,6 +44,8 @@ class PlayState extends FlxState {
     gameOverGroup = new GameOverGroup();
     gameOverGroup.exists = false;
 
+    shootingEnemy = new ShootingEnemy();
+
     add(new Background());
     add(new SpeedLines());
     add(new ExhaustGroup());
@@ -52,7 +55,7 @@ class PlayState extends FlxState {
     add(new Checkpoint());
     add(playerLaserGroup);
     add(teleportGroup);
-    add(new ShootingEnemy());
+    add(shootingEnemy);
     add(explosionGroup);
     add(boostGroup);
     add(hud);
@@ -66,6 +69,7 @@ class PlayState extends FlxState {
     }
 
     if (Reg.started) {
+      shootingEnemy.kill();
       Reg.player.visible = true;
       Reg.hazardService.spawnPattern();
       Reg.hazardService.spawnPattern();
@@ -115,7 +119,7 @@ class PlayState extends FlxState {
       if (!gameOver) {
         FlxG.save.flush();
         //FlxG.sound.music.stop();
-        FlxG.timeScale = 0.2;
+        FlxG.timeScale = 0.1;
         new FlxTimer().start(0.1, function(t) {
           gameOverGroup.exists = true;
           hud.exists = false;
@@ -131,10 +135,10 @@ class PlayState extends FlxState {
     if (!Reg.started) {
       hud.visible = false;
       boostGroup.visible = false;
-      FlxG.timeScale = 0.25;
+      FlxG.timeScale = 0.125;
 
       if (FlxG.keys.justPressed.SPACE) {
-        FlxG.timeScale = 1;
+        FlxG.timeScale = 0.5;
         hud.visible = true;
         titlescreen.visible = false;
         boostGroup.visible = true;
@@ -143,6 +147,7 @@ class PlayState extends FlxState {
         Reg.hazardService.spawnPattern();
         Reg.hazardService.spawnPattern();
         Reg.hazardService.spawnPattern();
+        shootingEnemy.kill();
       }
 
       super.update(elapsed);
@@ -175,7 +180,10 @@ class PlayState extends FlxState {
     }
 
     Reg.trackPosition += elapsed * (1 + Reg.speed/100);
-    Reg.distance = Reg.trackPosition * 50;
+
+    if (Reg.started && !gameOver) {
+      Reg.distance = Reg.trackPosition * Reg.DISTANCE_COEFFICIENT;
+    }
 
     if (Reg.trackPosition > 100) {
       Reg.difficulty = 1;
@@ -190,8 +198,8 @@ class PlayState extends FlxState {
 
   private function recordHighScores():Void {
     if (FlxG.save.data.highScore == null) FlxG.save.data.highScore = 0;
-    if (Reg.trackPosition * Reg.DISTANCE_COEFFICIENT > FlxG.save.data.highScore) {
-      FlxG.save.data.highScore = Reg.trackPosition * Reg.DISTANCE_COEFFICIENT;
+    if (Reg.distance > FlxG.save.data.highScore) {
+      FlxG.save.data.highScore = Reg.distance;
     }
   }
 }
