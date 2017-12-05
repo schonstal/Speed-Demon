@@ -29,24 +29,25 @@ class GameOverGroup extends FlxSpriteGroup {
     scoreText.letterSpacing = -2;
     scoreText.text = "0";
     scoreText.x = 4;
-    scoreText.y = 240;
-    //add(scoreText);
+    scoreText.y = 142;
+    scoreText.color = 0xff10a08d;
+    add(scoreText);
 
     highScoreText = new FlxBitmapText(font);
     highScoreText.letterSpacing = -2;
     highScoreText.text = "0";
     highScoreText.x = FlxG.width/2 - 8;
-    highScoreText.y = 260;
-    //add(highScoreText);
+    highScoreText.y = 177;
+    highScoreText.color = 0xff10a08d;
+    add(highScoreText);
   }
 
   public override function update(elapsed:Float):Void {
-    scoreText.text = "" + Reg.time;
-    highScoreText.text = "" + FlxG.save.data.highScore;
+    scoreText.text = "" + Std.int(Reg.trackPosition * 50);
+    highScoreText.text = "" + Std.int(FlxG.save.data.highScore);
 
-    var X:Float = scoreText.width > highScoreText.width ? scoreText.width : highScoreText.width;
-    scoreText.x = FlxG.width/2 - X/2;
-    highScoreText.x = FlxG.width/2 - X/2;
+    scoreText.x = FlxG.width / 2 - scoreText.width / 2;
+    highScoreText.x = FlxG.width / 2 - highScoreText.width / 2;
 
     super.update(elapsed);
   }

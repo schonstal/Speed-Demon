@@ -174,9 +174,11 @@ class PlayState extends FlxState {
       FlxG.camera.shake(0.004 * Reg.speed/100, 0.2);
     }
 
-    Reg.trackPosition += elapsed * (1 + Reg.speed/100);
-    Reg.distance = Reg.trackPosition * 50;
+    if (!gameOver && Reg.started) {
+      Reg.trackPosition += elapsed * (1 + Reg.speed/100);
+    }
 
+    Reg.distance = Reg.trackPosition * 50;
 
     if (Reg.trackPosition > 100) {
       Reg.difficulty = 1;
