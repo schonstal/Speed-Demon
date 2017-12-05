@@ -27,7 +27,7 @@ class ShootingEnemy extends FlxSprite {
   public function new() {
     super();
     x = Reg.LANE_OFFSET;
-    y = 0;
+    y = -100;
 
     loadGraphic("assets/images/enemies/goat2.png", true, 30, 30);
     animation.add("idle", [0]);
@@ -65,6 +65,7 @@ class ShootingEnemy extends FlxSprite {
     exists = true;
     health = 100;
     y = -50;
+    shootTimer = 0;
 
     lane = startLane;
 
@@ -103,6 +104,8 @@ class ShootingEnemy extends FlxSprite {
     new FlxTimer().start(SPAWN_TIME, function(t) {
       initialize(Reg.random.int(0, 3));
     });
+
+    Reg.explosionService.explode(x + 2, y + 4, 0, 0);
   }
 
   function shoot():Void {

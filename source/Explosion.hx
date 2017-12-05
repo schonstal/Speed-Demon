@@ -25,7 +25,7 @@ class Explosion extends FlxSprite {
         animation.add("explode", [0, 1, 2, 3, 4], 15, false);
         color = FlxColor.fromHSB(161, 0.2, 0.9);
       } else {
-        loadGraphic("assets/images/explosion.png", true, 32, 32);
+        loadGraphic("assets/images/pentagram.png", true, 32, 32);
         offset.x = 16;
         offset.y = 16;
         animation.add("explode", [0, 1, 2, 3, 4], 15, false);

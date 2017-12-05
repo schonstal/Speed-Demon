@@ -42,7 +42,8 @@ class Checkpoint extends FlxSpriteGroup {
 
     if (y > Player.POSITION && !awarded) {
       awarded = true;
-      Reg.time += 20;
+      Reg.time += 15;
+      Reg.speed += 25;
       if (Reg.time > 99) {
         Reg.time = 99;
       }

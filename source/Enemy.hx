@@ -51,7 +51,7 @@ class Enemy extends Obstacle {
         Reg.player.alive &&
         Reg.player.shooting &&
         y > -60 && y < Reg.player.y) {
-      hurt(1500 * elapsed);
+      hurt(100);
     }
   }
 
