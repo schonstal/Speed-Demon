@@ -41,7 +41,7 @@ class GameOverGroup extends FlxSpriteGroup {
   }
 
   public override function update(elapsed:Float):Void {
-    scoreText.text = "" + Reg.score;
+    scoreText.text = "" + Reg.time;
     highScoreText.text = "" + FlxG.save.data.highScore;
 
     var X:Float = scoreText.width > highScoreText.width ? scoreText.width : highScoreText.width;

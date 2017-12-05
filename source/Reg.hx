@@ -23,15 +23,12 @@ class Reg {
 
   public static var initialized:Bool = false;
   public static var started:Bool = false;
-  public static var difficulty:Float = 1;
   public static var player:Player;
-  public static var score:Int;
-  public static var combo:Int;
+
+  public static var time:Float = 0;
 
   public static var trackPosition:Float = 0;
   public static var speed:Float = 25;
-
-  public static var hardMode:Bool = false;
 
   public static var TAU:Float = 6.28318530718;
 }

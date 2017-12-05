@@ -7,7 +7,7 @@ import flixel.graphics.frames.FlxBitmapFont;
 import flixel.text.FlxBitmapText;
 import flixel.math.FlxPoint;
 
-class HUD extends FlxSpriteGroup {
+class Checkpoint extends FlxSpriteGroup {
   var healthBar:HudBar;
   var speedBar:HudBar;
   var timeText:FlxBitmapText;
@@ -40,6 +40,12 @@ class HUD extends FlxSpriteGroup {
   }
 
   public override function update(elapsed:Float):Void {
+    if (y > Reg.player.y) {
+      // award time
+      // increment checkpoint count
+    }
+
+    y = Reg.trackPosition
     healthBar.value = Reg.player.health;
     speedBar.value = Reg.speed;
 

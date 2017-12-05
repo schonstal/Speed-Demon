@@ -54,7 +54,6 @@ class Player extends FlxSprite {
 
     //FlxG.camera.flash(0xccff1472, 0.5, null, true);
     FlxG.camera.shake(0.01, 0.2);
-    Reg.combo = 0;
 
     Reg.speed -= 25;
     if(Reg.speed < 0) {

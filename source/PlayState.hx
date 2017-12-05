@@ -29,6 +29,7 @@ class PlayState extends FlxState {
   override public function create():Void {
     super.create();
     FlxG.timeScale = 1;
+    Reg.time = 30;
 
     initializeRegistry();
     registerServices();
@@ -52,6 +53,8 @@ class PlayState extends FlxState {
     add(boostGroup);
     add(hud);
     add(gameOverGroup);
+
+    Reg.hazardService.spawnPattern(Reg.random.int(0, SpawnPatterns.PATTERNS[0].length-1));
   }
 
   function initializeRegistry() {
@@ -92,6 +95,11 @@ class PlayState extends FlxState {
     if (spawnAmt >= spawnRate) {
       Reg.hazardService.spawnPattern(Reg.random.int(0, SpawnPatterns.PATTERNS[0].length-1));
       spawnAmt = 0;
+    }
+
+    Reg.time -= elapsed;
+    if (Reg.time < 0) {
+      Reg.player.hurt(100);
     }
 
     super.update(elapsed);
@@ -136,12 +144,7 @@ class PlayState extends FlxState {
   }
 
   private function recordHighScores():Void {
-    if (Reg.hardMode) {
-      if (FlxG.save.data.hardHighScore == null) FlxG.save.data.hardHighScore = 0;
-      if (Reg.score > FlxG.save.data.hardHighScore) FlxG.save.data.hardHighScore = Reg.score;
-    } else {
-      if (FlxG.save.data.highScore == null) FlxG.save.data.highScore = 0;
-      if (Reg.score > FlxG.save.data.highScore) FlxG.save.data.highScore = Reg.score;
-    }
+    if (FlxG.save.data.highScore == null) FlxG.save.data.highScore = 0;
+    if (Reg.trackPosition > FlxG.save.data.highScore) FlxG.save.data.highScore = Reg.trackPosition;
   }
 }

@@ -13,15 +13,19 @@ class HudBar extends FlxSpriteGroup {
   var invert:Bool = false;
   var defaultColor:Int;
 
+  var flash:Bool = false;
+  var flashTime:Float = 0;
+
   public var value(default, set):Float;
 
   function set_value(newValue:Float):Float {
     var width:Int = Std.int((barBackground.width - 8) * newValue/100);
 
     if (newValue != value && width > 0) {
+
       if (invert && newValue < value) {
         bar.color = 0xffffffff;
-      } else {
+      } else if (newValue < 100 && value < 100) {
         bar.color = defaultColor;
       }
 
@@ -57,5 +61,19 @@ class HudBar extends FlxSpriteGroup {
     this.invert = invert;
 
     add(bar);
+  }
+
+  public override function update(elapsed:Float) {
+    super.update(elapsed);
+
+    if (invert && Reg.speed == 100) {
+      bar.color = flash ? 0xffffb9be : 0xff44ecb7;
+
+      if (flashTime > 0.05) {
+        flash = !flash;
+        flashTime = 0;
+      }
+      flashTime += elapsed;
+    }
   }
 }
