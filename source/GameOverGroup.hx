@@ -43,7 +43,7 @@ class GameOverGroup extends FlxSpriteGroup {
   }
 
   public override function update(elapsed:Float):Void {
-    scoreText.text = "" + Std.int(Reg.trackPosition * 50);
+    scoreText.text = "" + Std.int(Reg.distance);
     highScoreText.text = "" + Std.int(FlxG.save.data.highScore);
 
     scoreText.x = FlxG.width / 2 - scoreText.width / 2;
