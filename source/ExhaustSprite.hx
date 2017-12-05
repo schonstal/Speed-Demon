@@ -53,7 +53,7 @@ class ExhaustSprite extends FlxSprite {
     }
 
     y = Reg.player.y - Reg.player.offset.y + 27;
-    if (lane == Reg.player.lane) {
+    if (lane == Reg.player.lane && Reg.started) {
       visible = true;
       wasAlive = true;
       animation.play("idle");

@@ -24,6 +24,8 @@ class PlayState extends FlxState {
   var gameOverGroup:GameOverGroup;
   var hud:HUD;
 
+  var titlescreen:FlxSprite;
+
   var gameOver:Bool = false;
 
   override public function create():Void {
@@ -56,9 +58,19 @@ class PlayState extends FlxState {
     add(hud);
     add(gameOverGroup);
 
-    Reg.hazardService.spawnPattern();
-    Reg.hazardService.spawnPattern();
-    Reg.hazardService.spawnPattern();
+    if (!Reg.started) {
+      titlescreen = new FlxSprite();
+      titlescreen.loadGraphic("assets/images/hud/title.png");
+      add(titlescreen);
+      Reg.speed = -50;
+    }
+
+    if (Reg.started) {
+      Reg.player.visible = true;
+      Reg.hazardService.spawnPattern();
+      Reg.hazardService.spawnPattern();
+      Reg.hazardService.spawnPattern();
+    }
   }
 
   function initializeRegistry() {
@@ -95,6 +107,48 @@ class PlayState extends FlxState {
   }
 
   override public function update(elapsed:Float):Void {
+    if (!Reg.player.alive) {
+      if (FlxG.keys.justPressed.SPACE) {
+        FlxG.switchState(new PlayState());
+      }
+
+      if (!gameOver) {
+        FlxG.save.flush();
+        //FlxG.sound.music.stop();
+        FlxG.timeScale = 0.2;
+        new FlxTimer().start(0.1, function(t) {
+          gameOverGroup.exists = true;
+          hud.exists = false;
+          FlxTween.tween(FlxG, { timeScale: 1 }, 0.5, { ease: FlxEase.quartOut, onComplete: function(t) {
+            FlxG.timeScale = 1;
+          }});
+        });
+      }
+
+      gameOver = true;
+    }
+
+    if (!Reg.started) {
+      hud.visible = false;
+      boostGroup.visible = false;
+      FlxG.timeScale = 0.25;
+
+      if (FlxG.keys.justPressed.SPACE) {
+        FlxG.timeScale = 1;
+        hud.visible = true;
+        titlescreen.visible = false;
+        boostGroup.visible = true;
+        Reg.started = true;
+        Reg.player.visible = true;
+        Reg.hazardService.spawnPattern();
+        Reg.hazardService.spawnPattern();
+        Reg.hazardService.spawnPattern();
+      }
+
+      super.update(elapsed);
+      return;
+    }
+
     spawnAmt += elapsed;
     if (spawnAmt >= spawnRate) {
       Reg.hazardService.spawnPattern();
@@ -123,26 +177,6 @@ class PlayState extends FlxState {
     Reg.trackPosition += elapsed * (1 + Reg.speed/100);
     Reg.distance = Reg.trackPosition * 50;
 
-    if (!Reg.player.alive) {
-      if (FlxG.keys.justPressed.R) {
-        FlxG.switchState(new PlayState());
-      }
-
-      if (!gameOver) {
-        FlxG.save.flush();
-        //FlxG.sound.music.stop();
-        FlxG.timeScale = 0.2;
-        new FlxTimer().start(0.1, function(t) {
-          gameOverGroup.exists = true;
-          hud.exists = false;
-          FlxTween.tween(FlxG, { timeScale: 1 }, 0.5, { ease: FlxEase.quartOut, onComplete: function(t) {
-            FlxG.timeScale = 1;
-          }});
-        });
-      }
-
-      gameOver = true;
-    }
 
     if (Reg.trackPosition > 100) {
       Reg.difficulty = 1;

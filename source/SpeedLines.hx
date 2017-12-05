@@ -17,8 +17,6 @@ class SpeedLines extends FlxSpriteGroup {
     particles = new FlxSpriteGroup(); 
     particles.solid = false;
     add(particles);
-
-    initialize();
   }
 
   public function initialize():Void {
@@ -28,6 +26,10 @@ class SpeedLines extends FlxSpriteGroup {
 
 
   public override function update(elapsed:Float):Void {
+    if (!Reg.started) {
+      return;
+    }
+
     if (Reg.random.float(0, 1) > 0.8) {
       var particle:SpeedLineParticle = cast(particles.recycle(SpeedLineParticle), SpeedLineParticle);
       particle.initialize();

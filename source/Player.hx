@@ -44,6 +44,7 @@ class Player extends FlxSprite {
 
   public function init():Void {
     Reg.player = this;
+    visible = false;
 
     facing = FlxObject.RIGHT;
     health = 100;
@@ -72,8 +73,11 @@ class Player extends FlxSprite {
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
 
-    x = Reg.LANE_OFFSET + (lane * 30);
+    if (!Reg.started) {
+      return;
+    }
 
+    x = Reg.LANE_OFFSET + (lane * 30);
 
     if (Reg.speed > 0 && FlxG.keys.pressed.SPACE) {
       Reg.speed -= 100 * elapsed;
