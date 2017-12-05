@@ -9,8 +9,11 @@ class HazardService {
   public function new():Void {
   }
 
-  public function spawnPattern(patternIndex:Int) {
-    var pattern = SpawnPatterns.PATTERNS[0][patternIndex];
+  public function spawnPattern() {
+    var difficulty = Reg.random.int(0, Reg.difficulty);
+    var patternIndex = Reg.random.int(0, SpawnPatterns.PATTERNS[difficulty].length - 1);
+
+    var pattern = SpawnPatterns.PATTERNS[difficulty][patternIndex];
     if (pattern == null) return;
 
     var rows = pattern.split("\n").filter(function(e) {

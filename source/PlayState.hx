@@ -30,6 +30,7 @@ class PlayState extends FlxState {
     super.create();
     FlxG.timeScale = 1;
     Reg.time = 30;
+    Reg.difficulty = 0;
 
     initializeRegistry();
     registerServices();
@@ -46,6 +47,7 @@ class PlayState extends FlxState {
     add(Reg.player);
     add(enemyGroup);
     add(obstacleGroup);
+    add(new Checkpoint());
     add(playerLaserGroup);
     add(teleportGroup);
     add(new ShootingEnemy());
@@ -54,7 +56,9 @@ class PlayState extends FlxState {
     add(hud);
     add(gameOverGroup);
 
-    Reg.hazardService.spawnPattern(Reg.random.int(0, SpawnPatterns.PATTERNS[0].length-1));
+    Reg.hazardService.spawnPattern();
+    Reg.hazardService.spawnPattern();
+    Reg.hazardService.spawnPattern();
   }
 
   function initializeRegistry() {
@@ -93,7 +97,7 @@ class PlayState extends FlxState {
   override public function update(elapsed:Float):Void {
     spawnAmt += elapsed;
     if (spawnAmt >= spawnRate) {
-      Reg.hazardService.spawnPattern(Reg.random.int(0, SpawnPatterns.PATTERNS[0].length-1));
+      Reg.hazardService.spawnPattern();
       spawnAmt = 0;
     }
 
@@ -117,7 +121,7 @@ class PlayState extends FlxState {
     }
 
     Reg.trackPosition += elapsed * (1 + Reg.speed/100);
-
+    Reg.distance = Reg.trackPosition * 50;
 
     if (!Reg.player.alive) {
       if (FlxG.keys.justPressed.R) {
@@ -140,11 +144,21 @@ class PlayState extends FlxState {
       gameOver = true;
     }
 
+    if (Reg.trackPosition > 100) {
+      Reg.difficulty = 1;
+    }
+
+    if (Reg.trackPosition > 1000) {
+      Reg.difficulty = 2;
+    }
+
     recordHighScores();
   }
 
   private function recordHighScores():Void {
     if (FlxG.save.data.highScore == null) FlxG.save.data.highScore = 0;
-    if (Reg.trackPosition > FlxG.save.data.highScore) FlxG.save.data.highScore = Reg.trackPosition;
+    if (Reg.trackPosition * Reg.DISTANCE_COEFFICIENT > FlxG.save.data.highScore) {
+      FlxG.save.data.highScore = Reg.trackPosition * Reg.DISTANCE_COEFFICIENT;
+    }
   }
 }

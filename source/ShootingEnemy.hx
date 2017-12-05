@@ -12,6 +12,8 @@ import flixel.util.FlxTimer;
 import flixel.util.FlxSpriteUtil;
 
 class ShootingEnemy extends FlxSprite {
+  public static var SPAWN_TIME:Float = 15;
+
   var lane:Int = 0;
   var justHurt:Bool = false;
 
@@ -40,6 +42,8 @@ class ShootingEnemy extends FlxSprite {
 
     setFacingFlip(FlxObject.LEFT, true, false);
     setFacingFlip(FlxObject.RIGHT, false, false);
+
+    kill();
   }
 
   public override function hurt(damage:Float):Void {
@@ -60,6 +64,7 @@ class ShootingEnemy extends FlxSprite {
     solid = true;
     exists = true;
     health = 100;
+    y = -50;
 
     lane = startLane;
 
@@ -69,7 +74,7 @@ class ShootingEnemy extends FlxSprite {
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
     if (y < 38) {
-      y += elapsed * 200;
+      y += elapsed * 100;
     }
 
     if (lane == Reg.player.lane && Reg.player.alive && Reg.player.shooting) {
@@ -95,6 +100,9 @@ class ShootingEnemy extends FlxSprite {
     solid = false;
     exists = false;
     //FlxG.sound.play("assets/sounds/player/die.wav", 1 * FlxG.save.data.sfxVolume);
+    new FlxTimer().start(SPAWN_TIME, function(t) {
+      initialize(Reg.random.int(0, 3));
+    });
   }
 
   function shoot():Void {

@@ -51,12 +51,8 @@ class HUD extends FlxSpriteGroup {
         flashTime = 0;
       }
       flashTime += elapsed;
-    } else if (Reg.time < 11) {
-      scoreText.color = 0xffff4363;
-    } else if (Reg.time < 16) {
-      scoreText.color = 0xffc02265;
     } else {
-      scoreText.color = 0xff812256;
+      scoreText.color = 0xffffb9be;
     }
 
     scoreText.text = "" + Std.int(Reg.time); //Std.int(Reg.trackPosition * 10);

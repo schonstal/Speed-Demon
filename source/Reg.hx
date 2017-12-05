@@ -11,6 +11,10 @@ class Reg {
   public static var LANE_OFFSET:Int = 72;
   public static var LANE_WIDTH:Int = 30;
 
+  public static var DISTANCE_COEFFICIENT = 50;
+
+  public static var difficulty:Int = 0;
+
   public static var random:FlxRandom;
 
   public static var obstacleService:ObstacleService;
@@ -28,6 +32,7 @@ class Reg {
   public static var time:Float = 0;
 
   public static var trackPosition:Float = 0;
+  public static var distance:Float = 0;
   public static var speed:Float = 25;
 
   public static var TAU:Float = 6.28318530718;
